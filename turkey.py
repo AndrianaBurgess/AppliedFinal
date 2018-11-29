@@ -11,17 +11,19 @@ PARAMS = {'commodity_dec': "TURKEYS", 'year__GE' : '1989' , 'state_alpha' : 'VA'
 r = requests.get(url = URL, params = PARAMS) 
   
 # extracting data in json format 
-data = r.json() 
-json_parsed = json.loads(data)
+#data = r.json() 
+json_parsed = json.loads(r.text)
+
 json_data = json_parsed['data']
-info = open('/TurkeysData.csv','w')
+#print(json_data)
+info = open('TurkeysData.csv','w+')
 csvwriter = csv.writer(info)
 count = 0 
-for i in info:
+for i in json_data:
     if count == 0:
         header = i.keys()
         csvwriter.writerow(header)
         count+=1
-    csvwrite.writerow(i.values())
+    csvwriter.writerow(i.values())
 info.close()
 
